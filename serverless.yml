@@ -1,19 +1,35 @@
-service: serverless
+service: fem-course
 
 provider:
   name: aws
   runtime: nodejs8.10
-  profile: femasters
-  region: us-west-1
+  profile: personal
+  region: us-east-1
   stage: dev
 
 plugins:
   - serverless-offline
 
-functions:  
-  todos:
-    handler: src/api/todos.handler
-    
-  todo:
-    handler: src/api/todo.handler
-    
+functions:
+  # todos:
+  #   handler: src/api/todos.handler
+  #   events:
+  #     - http:
+  #         path: /todo
+  #         method: GET
+
+  # todo:
+  #   handler: src/api/todo.handler
+  #   events:
+  #     - http:
+  #         path: /api/{id}
+  #         method: GET
+  #         request:
+  #           parameters:
+  #             id: true
+
+  api:
+    handler: src/api/api.handler
+    events:
+      - http: ANY /
+      - http: "ANY /{param+}"
